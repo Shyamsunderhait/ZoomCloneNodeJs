@@ -1,0 +1,21 @@
+const myVideo = document.createElement("video");
+myVideo.muted = true;
+
+let myVideoStream;
+//getUserMedia = it accepts an object
+navigator.mediaDevices
+  .getUserMedia({
+    video: true,
+    audio: true,
+  })
+  .then((stream) => {
+    myVideoStream = stream;
+    addVideoStream(myVideo, stream);
+  });
+
+const addVideoStream = (video, stream) => {
+  video.srcObject = stream;
+  video.addEventListener("loadmetadata", () => {
+    video.play();
+  });
+};
